@@ -10,7 +10,7 @@ pipeline{
         NEXUS_PASS = 'saqib'
         RELEASE_REPO = 'ci-jenkins-release'
         CENTRAL_REPO = 'ci-jenkins-proxy'
-        NEXUSIP = "172.31.24.134"
+        NEXUSIP = "172.31.26.159"
         NEXUSPORT = '8081'
         NEXUS_GRP_REPO = 'ci-jenkins-group'
         NEXUS_LOGIN = 'nexuslogin'
