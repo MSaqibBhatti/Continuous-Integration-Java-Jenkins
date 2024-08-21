@@ -44,7 +44,7 @@ pipeline{
                 scannerHome = tool "${SONARSCANNER}"
             }
             steps{
-                with SonarQubeEnv ("${SONARSERVER}"){
+                withSonarQubeEnv("${SONARSERVER}"){
                     sh "${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=ci-jenkins \
                         -Dsonar.projectName=ci-jenkins-project \
