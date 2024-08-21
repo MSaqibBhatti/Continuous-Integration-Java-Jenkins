@@ -14,6 +14,8 @@ pipeline{
         NEXUSPORT = '8081'
         NEXUS_GRP_REPO = 'ci-jenkins-group'
         NEXUS_LOGIN = 'nexuslogin'
+        SONARSERVER = 'sonarserver'
+        SONARSCANNER = 'sonarscanner'
     }
     stages{
         stage('BUILD'){
@@ -35,6 +37,22 @@ pipeline{
         stage('Checkstyle Analysis'){
             steps{
                 sh 'mvn -s settings.xml checkstyle:checkstyle'
+            }
+        }
+        stage('Sonar Analysis'){
+            environment{
+                scannerHome = tool "${SONARSCANNER}"
+            }
+            steps{
+                with SonarQubeEnv ("${SONARSERVER}"){
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=ci-jenkins \
+                        -Dsonar.projectName=ci-jenkins-project \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=src/ \
+                        -Dsonar.java.binaries=target/test-classes/come/visualpathit/account/controllerTest/ \
+                        -Dsonar.junit.reportsPath=target/checkstyle-result.xml"
+                }
             }
         }
     }
